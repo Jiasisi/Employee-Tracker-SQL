@@ -12,52 +12,45 @@ const db = mysql.createConnection (
 );
 
 
-function options() {
-    const commands = [
-        {
-            type: 'list',
-            message: 'Please choose what you want to do',
-            name: 'commands',
-            choices: [
-                'view all departments',
-                'view all roles',
-                'view all employees',
-                'add a department',
-                'add a role',
-                'add an employee',
-                'update an employee role',
-            ]
-        }
-    ];
+
+const commands = [
+    {
+        type: 'list',
+        message: 'Please choose what you want to do',
+        name: 'commands',
+        choices: [
+            'view all departments',
+            'view all roles',
+            'view all employees',
+            'add a department',
+            'add a role',
+            'add an employee',
+            'update an employee role',
+        ]
+    }
+];
 
     
-    const userchoice = inquirer.prompt(commands);
+function options() {
 
-    switch (userchoice.choice) {
-        case "view all departments":
-            viewAllDepartments();
-            break;
-        case "view all roles":
-            viewAllRoles();
-            break;
-        case "view all employees":
-            viewAllEmployees();
-            break;
-        case "add a department":
-
-        break;
-        case "add a role":
-
-        break;
-        case "add an employee":
-
-        break;
-        case "update an employee role":
-
-        break;
-
-
-    }
+    inquirer.prompt(commands)
+        .then(answer => {
+            if (answer.commands === 'view all departments') {
+                viewAllDepartments();
+            } else if (answer.commands === 'view all roles') {
+                viewAllRoles();
+            } else if (answer.commands === 'view all employees') {
+                viewAllEmployees();
+            } else if (answer.commands === 'add a department') {
+                addADepartment();
+            } else if (answer.commands === 'add a role') {
+                addARole();
+            } else if (answer.commands === 'add an employee') {
+                addAnEmployee();
+            } else if (answer.commands === 'update an employee role') {
+                updateEmployee();
+            }
+        })
 
 
 };
@@ -86,6 +79,7 @@ function viewAllRoles() {
         } 
         console.table(results);
     });
+    options();
 };
 
 function viewAllEmployees() {
@@ -95,8 +89,29 @@ function viewAllEmployees() {
         } 
         console.table(results);
     });
+    options();
 };
 
+function addADepartment() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of the department?',
+            name: 'department_name'
+        }
+    ]).then(function(res) {
+        db.query(`INSERT INTO department(department_name) 
+        VALUE ('${res.department}')`, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            
+        } )
+        console.table(result);
+        
+    });
+    then.options();
+};
 
 
 
