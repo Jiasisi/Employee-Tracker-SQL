@@ -1,15 +1,7 @@
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
+const db = require('./db/connection');
 
-const db = mysql.createConnection (
-    {
-        host: 'localhost',
-        user: 'root',
-        password: 'Ljs19951202',
-        database: 'employees_db'
-    },
-    console.log('Connected to the employees_db database.')
-);
 
 
 
@@ -99,20 +91,89 @@ function addADepartment() {
             message: 'What is the name of the department?',
             name: 'department_name'
         }
-    ]).then(function(res) {
-        db.query(`INSERT INTO department(department_name) 
-        VALUE ('${res.department}')`, (err, result) => {
-            if (err) {
-                console.log(err);
+    ]).then(function(results) {
+        db.query(
+            'INSERT INTO department SET ?',
+            ({
+                department_name: results.department,
+            }),
+            function (err, results) {
+                if ( err ) return reject( err );
             }
-            
-        } )
-        console.table(result);
+        )
+        console.table(results);
+        options();
         
-    });
-    then.options();
+    })
+    
 };
 
+
+
+
+
+
+function addARole() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of the role?',
+            name: 'role_name'
+        },
+        {
+            type: 'input',
+            message: 'What is the salary of the role?',
+            name: 'salary'
+        },
+        {
+            type: 'input',
+            message: 'What is the department of the role?',
+            name: 'role_department'
+        }
+    ]).then(function(results) {
+        db.query('INSERT INTO role'
+        )
+        console.tablee(results);
+        options();
+    })
+};
+
+
+function addAnEmployee() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: `What is the employee's first name?`,
+            name: 'first_name'
+        },
+        {
+            type: 'input',
+            message: `What is the employee's last name?`,
+            name: 'last_name'
+        },
+        {
+            type: 'input',
+            message: `What is the employee's role?`,
+            name: 'newRole'
+        },
+        {
+            type: 'input',
+            message: `Who is the employee's manager?`,
+            name: 'addManager'
+        }
+    ]).then(function(results) {
+        db.query('INSERT INTO role'
+        )
+        console.tablee(results);
+        options();
+    })
+};
+
+function updateEmployee() {
+
+
+
+};
 
 
 
