@@ -91,17 +91,14 @@ function addADepartment() {
             message: 'What is the name of the department?',
             name: 'department_name'
         }
-    ]).then(function(results) {
+    ]).then((answer) => {
+        
         db.query(
-            'INSERT INTO department SET ?',
-            ({
-                department_name: results.department,
-            }),
-            function (err, results) {
+            `INSERT INTO department(department_name) VALUE (${JSON.stringify(answer.departmentName)})`, function (err, results) {
                 if ( err ) return reject( err );
             }
         )
-        console.table(results);
+        console.log('The department has been addded into database');
         options();
         
     })
