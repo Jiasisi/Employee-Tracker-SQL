@@ -230,7 +230,7 @@ function restart() {
 
 function exit() {
     console.log("Thank you for using employee tracker!")
-    connection.end()
+    db.end()
 };
 
 

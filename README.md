@@ -12,4 +12,4 @@
 
 ## links
 Link of repo: https://github.com/Jiasisi/Employee-Tracker-SQL
-Link of Vedio: 
+Link of Vedio: https://drive.google.com/file/d/1HSVmU5mC1HAzgcz58x4u6kT3094gn9ya/view?usp=sharing
